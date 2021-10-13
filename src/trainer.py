@@ -4,8 +4,6 @@ from tensorflow import keras
 from tensorflow.keras import layers
 
 # Create a simple dataset
-
-
 class MyDataset(object):
     def __init__(self):
         (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
