@@ -4,6 +4,8 @@ from tensorflow import keras
 from tensorflow.keras import layers
 
 # Create a simple dataset
+
+
 class MyDataset(object):
     def __init__(self):
         (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
@@ -31,3 +33,25 @@ def my_model():
     return keras.Model(inputs=inputs, outputs=outputs)
 
 # complete the training script below
+
+
+def train_model(model):
+    data = MyDataset.__init__()
+
+    model.compile(optimizer=keras.optimizers.RMSprop(), loss=keras.losses.SparseCategoricalCrossentropy(
+    ), metrics=[keras.metrics.SparseCategoricalAccuracy()])
+
+    print("Fit model on training data")
+    history = model.fit(data.x_train, data.y_train, batch_size=64,
+                        epochs=2, validation_data=(data.x_val, data.y_val),)
+
+    # Evaluate the model on the test data using `evaluate`
+    print("Evaluate on test data")
+    results = model.evaluate(data.x_test, data.y_test, batch_size=128)
+    print("test loss, test acc:", results)
+
+    # Generate predictions (probabilities -- the output of the last layer)
+    # on new data using `predict`
+    print("Generate predictions for 3 samples")
+    predictions = model.predict(data.x_test[:3])
+    print("predictions shape:", predictions.shape)
